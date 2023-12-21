@@ -1,24 +1,24 @@
 import { BsGoogle } from 'react-icons/bs';
-// import useAuthData from '../../hooks/useAuthData';
+import useAuth from '../../hooks/useAuth';
 
-// import { useLocation, useNavigate } from 'react-router-dom';
-// import toast from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SocialLogin = () => {
-	// const { googleSignIn } = useAuthData();
-	// const navigate = useNavigate();
-	// const location = useLocation();
+	const { googleSignIn } = useAuth();
+	const navigate = useNavigate();
+	const location = useLocation();
 	const handleGoogleSignIn = () => {
-		// googleSignIn()
-		// 	.then(res => {
-		// 		console.log(res.user);
-		// 		navigate(location.state || '/');
-		// 		toast.success('Login Successful');
-		// 	})
-		// 	.catch(err => {
-		// 		console.log(err.message);
-		// 		toast.error('Please Try Again');
-		// 	});
+		googleSignIn()
+			.then(res => {
+				console.log(res.user);
+				navigate(location.state || '/');
+				toast.success('Login Successful');
+			})
+			.catch(err => {
+				console.log(err.message);
+				toast.error('Please Try Again');
+			});
 	};
 	return (
 		<>

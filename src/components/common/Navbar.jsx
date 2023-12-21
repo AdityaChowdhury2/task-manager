@@ -1,18 +1,20 @@
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const navList = (
 	<>
-		<li>
-			<div className="cursor-pointer">Item 1</div>
+		<li className="hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] text-[var(--primary-color)] rounded-md">
+			<div className="cursor-pointer p-2">Item 1</div>
 		</li>
-		<li>
-			<div className="cursor-pointer">Item 3</div>
+		<li className="hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] text-[var(--primary-color)] rounded-md">
+			<div className="cursor-pointer p-2">Item 3</div>
 		</li>
 	</>
 );
 
 const Navbar = () => {
+	const { user, logOut } = useAuth();
 	return (
 		<div className="navbar container">
 			<div className="navbar-start">
@@ -22,7 +24,7 @@ const Navbar = () => {
 					</div>
 					<ul
 						tabIndex={0}
-						className="flex flex-col dropdown-content mt-3 z-[1] p-4 space-y-3 shadow bg-base-100 rounded-box w-44"
+						className="flex flex-col dropdown-content mt-3 z-[1] p-1 space-y-3 shadow bg-base-100 rounded-box w-44"
 					>
 						{navList}
 					</ul>
@@ -35,11 +37,42 @@ const Navbar = () => {
 				<ul className="menu menu-horizontal px-1">{navList}</ul>
 			</div>
 			<div className="navbar-end">
-				<Link to="/login">
-					<a className="btn bg-[var(--primary-color)] text-[var(--background-color)] hover:bg-[var(--primary-color-dark)] transition-colors btn-sm rounded-md">
-						Login
-					</a>
-				</Link>
+				{user ? (
+					<div className="dropdown dropdown-end">
+						<div
+							tabIndex={0}
+							role="button"
+							className="btn btn-ghost btn-circle avatar"
+						>
+							<div className="w-10 rounded-full">
+								<img
+									alt="Tailwind CSS Navbar component"
+									src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+								/>
+							</div>
+						</div>
+						<ul
+							tabIndex={0}
+							className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-40"
+						>
+							<li>
+								<Link to={'/dashboard'}>
+									<div className="justify-between">Dashboard</div>
+								</Link>
+							</li>
+
+							<li className="text-[var(--secondary-color-dark)] font-bold">
+								<a onClick={() => logOut()}>Logout</a>
+							</li>
+						</ul>
+					</div>
+				) : (
+					<Link to="/login">
+						<div className="btn bg-[var(--primary-color)] text-[var(--background-color)] hover:bg-[var(--primary-color-dark)] transition-colors btn-sm rounded-md">
+							Login
+						</div>
+					</Link>
+				)}
 			</div>
 		</div>
 	);
