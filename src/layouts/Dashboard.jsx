@@ -4,7 +4,7 @@ import { PiSignOut } from 'react-icons/pi';
 import useAuth from '../hooks/useAuth';
 
 const Dashboard = () => {
-	const { logOut } = useAuth();
+	const { user, logOut } = useAuth();
 	const listItem = (
 		<>
 			<li className="bg-[var(--primary-color)] text-[var(--background-color)]">
@@ -52,6 +52,17 @@ const Dashboard = () => {
 							{/* Navbar menu content here */}
 							{listItem}
 						</ul>
+						<div className="avatar online">
+							<div className="w-12 rounded-full">
+								<img
+									src={
+										user?.photoURL ||
+										`https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg`
+									}
+								/>
+							</div>
+						</div>
+
 						<button className="btn btn-sm bg-[var(--secondary-color)] border-0 rounded-md  text-white hover:bg-[var(--secondary-color-dark)]">
 							Logout <PiSignOut />
 						</button>
@@ -69,10 +80,23 @@ const Dashboard = () => {
 					className="drawer-overlay"
 				></label>
 				<div className="flex flex-col p-4 w-80 min-h-[calc(100vh-62px)] bg-[var(--primary-color)] mt-[62px] justify-between items-start">
-					<ul className="space-y-4">
+					<ul className="space-y-4 w-full">
 						{/* Sidebar content here */}
+						<li className="flex justify-center">
+							<div className="avatar online">
+								<div className="w-24 rounded-full">
+									<img
+										src={
+											user?.photoURL ||
+											`https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg`
+										}
+									/>
+								</div>
+							</div>
+						</li>
 						{listItem}
 					</ul>
+
 					<button
 						onClick={() => logOut()}
 						className="btn btn-sm bg-[var(--secondary-color)] border-0 rounded-md  text-white hover:bg-[var(--secondary-color-dark)]"
