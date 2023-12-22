@@ -29,9 +29,12 @@ const Navbar = () => {
 						{navList}
 					</ul>
 				</div>
-				<a className="text-xl font-bold text-[var(--primary-color)]">
+				<Link
+					to={'/'}
+					className="text-xl font-bold text-[var(--primary-color)]"
+				>
 					Task<span className="text-[var(--secondary-color)]">Forge</span>
-				</a>
+				</Link>
 			</div>
 			<div className="navbar-center hidden lg:flex">
 				<ul className="menu menu-horizontal px-1">{navList}</ul>
@@ -47,7 +50,10 @@ const Navbar = () => {
 							<div className="w-10 rounded-full">
 								<img
 									alt="Tailwind CSS Navbar component"
-									src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+									src={
+										user?.profileURL ||
+										`https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg`
+									}
 								/>
 							</div>
 						</div>

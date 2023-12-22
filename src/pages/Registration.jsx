@@ -1,16 +1,49 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import login from '../assets/login.jpg';
 import SocialLogin from '../components/common/SocialLogin';
+import toast from 'react-hot-toast';
+import useAuth from '../hooks/useAuth';
+import useAxios from '../hooks/useAxios';
 
 const Registration = () => {
-	const handleSubmit = e => {
+	const { createUser, updateNameAndDisplayPicture, user, loading } = useAuth();
+	const axios = useAxios();
+	const navigate = useNavigate();
+	const handleSubmit = async e => {
 		e.preventDefault();
 		const form = e.target;
-		const name = form.name.value;
+		const displayName = form.name.value;
 		const email = form.email.value;
 		const password = form.password.value;
 		console.log(name, email, password);
+		if (password.length < 6) {
+			return toast.error('Password must be at least 6 characters');
+		}
+		if (/^[^!@#$%^&*]*$/.test(password)) {
+			return toast.error('Please add at least one Special character');
+		}
+		if (/^[^A-Z]*$/.test(password)) {
+			return toast.error('Please add at least one capital letter');
+		}
+		const res = await createUser({ email, password });
+
+		await updateNameAndDisplayPicture({ displayName });
+		navigate(location.state || '/');
+		console.log(res.user);
+		try {
+			await axios.put(`/users/${email}`, { displayName, email });
+		} catch (err) {
+			console.log(err);
+		}
+		toast.success('User created successfully');
 	};
+	if (user) return <Navigate to="/" />;
+	else if (loading)
+		return (
+			<div className="flex items-center justify-center h-[30vh]">
+				<span className="loading loading-spinner loading-lg text-[var(--primary-color)]"></span>
+			</div>
+		);
 	return (
 		<div className="hero min-h-screen">
 			<div className="hero-content flex-col lg:flex-row-reverse">
