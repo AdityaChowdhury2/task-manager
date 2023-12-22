@@ -5,10 +5,14 @@ import useAuth from '../../hooks/useAuth';
 const navList = (
 	<>
 		<li className="hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] text-[var(--primary-color)] rounded-md">
-			<div className="cursor-pointer p-2">Item 1</div>
+			<Link to={'/about'} className="p-4 lg:px-3 lg:py-1">
+				About
+			</Link>
 		</li>
 		<li className="hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] text-[var(--primary-color)] rounded-md">
-			<div className="cursor-pointer p-2">Item 3</div>
+			<Link to={'/contact'} className="p-4 lg:px-3 lg:py-1">
+				Contact
+			</Link>
 		</li>
 	</>
 );
@@ -24,7 +28,7 @@ const Navbar = () => {
 					</div>
 					<ul
 						tabIndex={0}
-						className="flex flex-col dropdown-content mt-3 z-[1] p-1 space-y-3 shadow bg-base-100 rounded-box w-44"
+						className="flex flex-col dropdown-content mt-3 z-[1]  space-y-3 shadow bg-base-100 rounded-box w-44 p-3"
 					>
 						{navList}
 					</ul>

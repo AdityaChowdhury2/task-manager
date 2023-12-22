@@ -6,7 +6,11 @@ const useGetTaskByEmail = () => {
 	const { user, loading } = useAuth();
 	const axios = useAxios();
 
-	const { data: tasks, isLoading } = useQuery({
+	const {
+		data: tasks,
+		isLoading,
+		refetch,
+	} = useQuery({
 		queryKey: ['tasks'],
 		enabled: !!user && !loading,
 		queryFn: async () => {
@@ -15,7 +19,7 @@ const useGetTaskByEmail = () => {
 		},
 	});
 
-	return { tasks, isLoading };
+	return { tasks, isLoading, refetch };
 };
 
 export default useGetTaskByEmail;

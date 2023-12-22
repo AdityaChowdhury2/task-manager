@@ -4,19 +4,21 @@ import { useForm, Controller } from 'react-hook-form';
 import { FaRegCalendar } from 'react-icons/fa6';
 import useAxios from '../../hooks/useAxios';
 import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const AddTask = () => {
 	const { reset, handleSubmit, register, control } = useForm();
 	const { user } = useAuth();
+	const navigate = useNavigate();
 	const axios = useAxios();
 	const onSubmit = async values => {
 		// console.log(values);
-		const response = await axios.post(`/tasks`, {
+		await axios.post(`/tasks`, {
 			...values,
 			email: user.email,
 			status: 'todo',
 		});
-		console.log(response.data);
+		navigate('/dashboard');
 		reset();
 	};
 

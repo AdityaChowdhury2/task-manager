@@ -1,7 +1,11 @@
+import CommunitySection from '../components/CommunitySection';
+import HeroSection from '../components/HeroSection';
+
 const Home = () => {
 	return (
 		<div>
-			<p> Hello I Am Home </p>
+			<HeroSection />
+			<CommunitySection />
 		</div>
 	);
 };

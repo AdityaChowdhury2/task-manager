@@ -8,7 +8,7 @@ const Dashboard = () => {
 	const listItem = (
 		<>
 			<li className="bg-[var(--primary-color)] text-[var(--background-color)]">
-				<NavLink className={({ isActive }) => (isActive ? '' : '')} to={''}>
+				<NavLink className={({ isActive }) => (isActive ? '' : '')} to={'/'}>
 					<div className="w-full">Home</div>
 				</NavLink>
 			</li>

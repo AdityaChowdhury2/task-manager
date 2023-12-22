@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { uuid4 } from 'uuid4';
-import TaskCard from '../TaskCard';
+import TaskCard from '../../components/Dashboard/TaskCard';
 import useGetTaskByEmail from '../../hooks/useGetTaskByEmail';
 import useUpdateTask from '../../hooks/useUpdateTask';
 
@@ -36,17 +36,14 @@ const DashboardHome = () => {
 
 		if (source.droppableId !== destination.droppableId) {
 			const sourceColumn = columns[source.droppableId];
-			// console.log(sourceColumn);
+
 			const destColumn = columns[destination.droppableId];
-			// console.log(destColumn);
 
 			const sourceItems = [...sourceColumn.items];
 			const destItems = [...destColumn.items];
 			const [removed] = sourceItems.splice(source.index, 1);
-			// console.log(removed);
-
-			//TODO: api call to update status of removed._id status should be column name;
 			updateTask({ data: { status: destColumn.name }, id: removed._id });
+
 			destItems.splice(destination.index, 0, removed);
 			setColumns({
 				...columns,
@@ -90,7 +87,7 @@ const DashboardHome = () => {
 								display: 'inline-flex',
 							}}
 						>
-							<div className="m-2 flex gap-4 w-full justify-center">
+							<div className="m-2 inline-flex gap-4 justify-center max-w-screen-lg">
 								{Object.entries(columns).map(([columnId, column]) => {
 									return (
 										<div
@@ -112,7 +109,7 @@ const DashboardHome = () => {
 																	: 'lightgrey',
 																padding: 4,
 																minHeight: 500,
-																width: 250,
+																minWidth: 300,
 																borderRadius: '5px',
 																border: '3px dashed var(--primary-color)',
 															}}
